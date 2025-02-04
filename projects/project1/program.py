@@ -1,9 +1,12 @@
-
+from .game import Game
+from .multideck import Multideck
 
 def main():
     
-    print("Hello, World!")
-
+    game = Game()
+    game.play()
+    test = Multideck()
+    print(len((test.__bag__)))
 
 
 if __name__ == '__main__':
