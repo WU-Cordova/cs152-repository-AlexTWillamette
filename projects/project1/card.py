@@ -1,26 +1,6 @@
-from enum import Enum
 from dataclasses import dataclass
-
-class CardSuit(Enum):
-    HEART = "Heart"
-    DIAMOND = "Diamond"
-    CLUB = "Club"
-    SPADE = "Spade"
-
-class CardValue(Enum):
-    TWO = "2"
-    THREE = "3"
-    FOUR = "4" 
-    FIVE = "5"
-    SIX = "6"
-    SEVEN = "7"
-    EIGHT = "8"
-    NINE = "9"
-    TEN = "10"
-    JACK = "J"
-    QUEEN = "Q"
-    KING = "K"
-    ACE = "A"
+from .cardvalue import CardValue
+from .cardsuit import CardSuit
 
 @dataclass
 class Card:
@@ -28,7 +8,7 @@ class Card:
     suit: CardSuit
 
     def __str__(self):
-        return self.suit.value + self.suit.value
+        return self.value.value + self.suit.value
 
-    def __hash__(self): #cole debois the boy told me about this
-        return hash(str(self))
+    def __hash__(self): #cole debois told me about this. 
+        return hash(str(self)) #needed for a dictionary (my underlying bag structure) to function.
