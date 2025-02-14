@@ -28,14 +28,7 @@ class Array(IArray[T]):
                 raise TypeError
         self.__data_type = data_type
         self.__element_count = len(starting_sequence)
-        
-        if self.__element_count == 0:
-            self.__capacity = 0
-        else:
-            exp = 0
-            while self.__element_count - 2**exp > 0:
-                exp +=1 
-            self.__capacity = 2**exp
+        self.__capacity = len(starting_sequence)
 
         self.__elements = np.empty(self.__capacity, dtype=self.__data_type)
         for index in range(len(starting_sequence)):
@@ -147,7 +140,7 @@ class Array(IArray[T]):
         else:
             self.__capacity *= 2  
             newarray = np.empty(self.__capacity)
-            for i in range(self.__element_count):
+            for i in range(self.__element_count - 1):
                 newarray[i] = self.__elements[i]
             self.__elements = newarray
 
