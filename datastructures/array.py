@@ -40,7 +40,9 @@ class Array(IArray[T]):
     def __getitem__(self, index: slice) -> Sequence[T]: ...
     def __getitem__(self, index: int | slice) -> T | Sequence[T]:
         if isinstance(index, int):
-            if not (-self.__element_count < index and index < self.__element_count):
+            if index > 0 and index >= self.__element_count:
+                raise IndexError("Index out of bounds")   
+            if index < 0 and index <= -self.__element_count:
                 raise IndexError("Index out of bounds")
             item = self.__elements[index]
             return item.item() if isinstance(item, np.generic) else item
@@ -52,9 +54,13 @@ class Array(IArray[T]):
                 stop = index.stop
             step = index.step
 
-            if not (-self.__element_count < start and start < self.__element_count):
+            if start > 0 and start >= self.__element_count:
                 raise IndexError("Index out of bounds")
-            if not (-self.__element_count <= stop and stop <= self.__element_count):
+            if start < 0 and start <= -self.__element_count:
+                raise IndexError("Index out of bounds")
+            if stop > 0 and stop > self.__element_count:
+                raise IndexError("Index out of bounds")
+            if stop < 0 and stop < -self.__element_count:
                 raise IndexError("Index out of bounds")
 
             sliced_items = self.__elements[start:stop:step]
@@ -74,15 +80,15 @@ class Array(IArray[T]):
     def append(self, data: T) -> None:
         if not isinstance(data, self.__data_type):
             raise TypeError("Data type does not match array")
+        self.__grow(self.__element_count + 1)
         self.__element_count += 1
-        self.__grow(self.__element_count)
         self.__elements[self.__element_count] = data
 
     def append_front(self, data: T) -> None:
         if not isinstance(data, self.__data_type):
             raise TypeError("Data type does not match array")
+        self.__grow(self.__element_count + 1)
         self.__element_count += 1
-        self.__grow(self.__element_count)
         for index in range(self.__element_count - 1, 0, -1):   
             self.__elements[index] = self.__elements[index - 1]
         self.__elements[0] = data
@@ -140,7 +146,7 @@ class Array(IArray[T]):
         else:
             self.__capacity *= 2  
             newarray = np.empty(self.__capacity)
-            for i in range(self.__element_count - 1):
+            for i in range(self.__element_count):
                 newarray[i] = self.__elements[i]
             self.__elements = newarray
 
