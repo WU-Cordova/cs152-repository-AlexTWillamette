@@ -29,14 +29,17 @@ class Array2D(IArray2D[T]):
                 start = column_index.start
                 stop = column_index.stop
                 step = column_index.step
-                if not (-num_columns < start and start < num_columns):
+                if start > 0 and start >= self.__num_columns:
                     raise IndexError("Index out of bounds")
-                elif not (-num_columns <= stop and stop <= num_columns):
+                elif start < 0 and start <= -self.__num_columns:
+                    raise IndexError("Index out of bounds")
+                elif stop > 0 and stop >= num_columns:
+                    raise IndexError("Index out of bounds")
+                elif stop < 0 and stop <= -num_columns:
                     raise IndexError("Index out of bounds")
                 else:
                     return self.__elements[self.__offset + start:self.__offset + stop:step]
             else:
-                type(column_index)
                 raise TypeError
         
         def __setitem__(self, column_index: int, value: T) -> None:
