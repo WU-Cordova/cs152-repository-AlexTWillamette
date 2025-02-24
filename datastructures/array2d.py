@@ -100,7 +100,7 @@ class Array2D(IArray2D[T]):
     @staticmethod
     def empty(rows: int=0, cols: int=0, data_type: type=object) -> Array2D:
         start_empty = [[data_type() for i in range(cols)] for i in range(rows)]
-        return Array(starting_sequence=start_empty)
+        return Array2D(starting_sequence=start_empty, data_type=data_type)
 
     def __getitem__(self, row_index: int) -> Array2D.IRow[T]: 
         if row_index > 0 and row_index > self.__num_rows:
