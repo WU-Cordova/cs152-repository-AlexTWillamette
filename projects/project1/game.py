@@ -66,13 +66,13 @@ class Game():
             else:
                 print("Input not recognized.")
         if self.handvalue(self.__playerhand) > 21: # player immediately loses if they bust
-            print(f"Dealer's Hand: [{self.printhand(self.__dealerhand)}] ", end="")
+            print(f"Dealer's Hand: {self.printhand(self.__dealerhand)}", end="")
             print(f"| Score: {self.handvalue(self.__dealerhand)}")
             print("Dealer wins! Player busted.")
         else:
             while self.handvalue(self.__dealerhand) < 17: # dealer draws to at least 17
                 self.draw(self.__dealerhand)
-            print(f"Dealer's Hand: [{self.printhand(self.__dealerhand)}] ", end="")
+            print(f"Dealer's Hand: {self.printhand(self.__dealerhand)} ", end="")
             print(f"| Score: {self.handvalue(self.__dealerhand)}")
             if self.handvalue(self.__dealerhand) > 21:
                 print("Player wins! Dealer busted.")
