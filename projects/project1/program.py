@@ -1,5 +1,4 @@
 from .game import Game
-from .multideck import Multideck
 
 def main():
     

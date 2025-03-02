@@ -1,9 +1,11 @@
-
+from .grid import Grid
+from .gamecontroller import GameController
+from datastructures.array import Array
 
 def main():
     
-    print("Hello, World!")
-
+    game = GameController()
+    game.run()
 
 
 if __name__ == '__main__':

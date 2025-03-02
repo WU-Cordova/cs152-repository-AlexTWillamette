@@ -42,12 +42,16 @@ class Array(IArray[T]):
         if isinstance(index, int):
             if index > 0 and index >= self.__element_count:
                 raise IndexError("Index out of bounds")   
-            if index < 0 and index <= -self.__element_count:
+            if index < 0 and index < -self.__element_count:
                 raise IndexError("Index out of bounds")
+            if index < 0:
+                index += self.__element_count
             item = self.__elements[index]
             return item.item() if isinstance(item, np.generic) else item
         elif isinstance(index, slice):
             start = index.start
+            if start < 0:
+                start = self.__element_count + start
             if index.stop == None:
                 stop = self.__element_count
             else:
@@ -82,7 +86,7 @@ class Array(IArray[T]):
             raise TypeError("Data type does not match array")
         self.__grow(self.__element_count + 1)
         self.__element_count += 1
-        self.__elements[self.__element_count] = data
+        self.__elements[self.__element_count - 1] = data
 
     def append_front(self, data: T) -> None:
         if not isinstance(data, self.__data_type):
@@ -144,11 +148,15 @@ class Array(IArray[T]):
         if self.__capacity >= new_size:
             pass
         else:
-            self.__capacity *= 2  
-            newarray = np.empty(self.__capacity)
-            for i in range(self.__element_count):
-                newarray[i] = self.__elements[i]
-            self.__elements = newarray
+            if self.__capacity == 0:
+                self.__capacity = 1
+                self.__elements = np.empty(self.__capacity, dtype=self.__data_type)
+            else:
+                self.__capacity *= 2  
+                newarray = np.empty(self.__capacity, dtype = self.__data_type)
+                for i in range(self.__element_count):
+                    newarray[i] = self.__elements[i]
+                self.__elements = newarray
 
     def __shrink(self, new_size: int) -> None:
         if new_size > (self.__capacity / 4):

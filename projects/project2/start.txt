@@ -1,0 +1,14 @@
+# Any line that begins with a #
+# is a comment and is ignored. Rows, columns.
+10
+12
+XX--------XX
+X----------X
+------------
+------------
+------------
+----XXX-----
+------------
+------------
+X----------X
+XX--------XX
