@@ -1,6 +1,4 @@
-from .grid import Grid
 from .gamecontroller import GameController
-from datastructures.array import Array
 
 def main():
     
