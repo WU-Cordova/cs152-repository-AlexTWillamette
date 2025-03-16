@@ -165,12 +165,15 @@ class CircularQueue(IQueue[T]):
         for i in range(len(self)):
             self_items.append(self_copy.dequeue())
             other_items.append(other_copy.dequeue())
-        for item in other_items:
-            if item not in self_items:
-                return False
+        if self_items[0] != other_items[0]:
+            return False
+        if self_items[-1] != other_items[-1]:
+            return False
         for item in self_items:
             if item not in other_items:
                 return False
+            else:
+                other_items.remove(item)
         return True
           
     
