@@ -168,6 +168,9 @@ class CircularQueue(IQueue[T]):
         for item in other_items:
             if item not in self_items:
                 return False
+        for item in self_items:
+            if item not in other_items:
+                return False
         return True
           
     
