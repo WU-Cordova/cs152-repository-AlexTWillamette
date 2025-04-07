@@ -162,7 +162,8 @@ class LinkedList[T](ILinkedList[T]):
         self.tail = self.tail.previous
         if self.tail != None:
             self.tail.next = None
-        
+        else:
+            self.head = None
         self.count -= 1
 
         return item
@@ -176,6 +177,8 @@ class LinkedList[T](ILinkedList[T]):
         self.head = self.head.next
         if self.head != None:
             self.head.previous = None
+        else:
+            self.tail = None
 
         self.count -= 1
 
