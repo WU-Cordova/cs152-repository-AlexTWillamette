@@ -20,7 +20,6 @@ class ListStack(Generic[T], IStack[T]):
 
         """
         self.ll = LinkedList(data_type=data_type)
-        self.data_type = data_type
 
     def push(self, item: T):
         """
@@ -109,11 +108,9 @@ class ListStack(Generic[T], IStack[T]):
         selfarr = []
         otherarr = []
         for i in range(len(self)):
-            selfarr.append(copyself.pop())
-            otherarr.append(copyother.pop())
-        if selfarr == otherarr:
-            return True
-        return False
+            if selfarr.append(copyself.pop()) != otherarr.append(copyother.pop()):
+                return False
+        return True
 
     def __len__(self) -> int:
         """

@@ -142,11 +142,9 @@ class Deque[T](IQueue[T]):
         selfarr = []
         otherarr = []
         for i in range(len(self)):
-            selfarr.append(copyself.dequeue())
-            otherarr.append(copyother.dequeue())
-        if selfarr == otherarr:
-            return True
-        return False
+            if selfarr.append(copyself.dequeue()) != otherarr.append(copyother.dequeue()):
+                return False
+        return True
     
     def clear(self):
         """
