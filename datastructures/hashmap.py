@@ -4,7 +4,7 @@ from datastructures.ihashmap import KT, VT, IHashMap
 from datastructures.array import Array
 import pickle
 import hashlib
-from sympy import nextprime
+#from sympy import nextprime
 
 from datastructures.linkedlist import LinkedList
 
@@ -22,7 +22,20 @@ class HashMap(IHashMap[KT, VT]):
         return self._hash_function(key) % len(self._buckets)
 
     def _get_next_size(self) -> int:
-        return nextprime(len(self._buckets), 1)
+        #return nextprime(len(self._buckets), 1) # codegrade doesn't like using sympy
+        # rudimentary next prime finding function:
+        size = len(self._buckets)
+        found = False
+        while found == False:
+            size += 2 # starts on odd, only need to check odds
+            divisors = 0
+            for i in range(2, size):
+                if size % i == 0:
+                    divisors += 1
+                    break
+            if divisors == 0:
+                found = True
+        return size
     
     def _rehash_and_resize(self, new_size) -> None:
         new_array = Array(starting_sequence = \
