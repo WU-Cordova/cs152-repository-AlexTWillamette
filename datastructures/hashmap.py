@@ -24,7 +24,7 @@ class HashMap(IHashMap[KT, VT]):
     def _get_next_size(self) -> int:
         #return nextprime(len(self._buckets), 1) # codegrade doesn't like using sympy
         # rudimentary next prime finding function:
-        size = len(self._buckets)
+        size = len(self._buckets) * 2 + 1
         found = False
         while found == False:
             size += 2 # starts on odd, only need to check odds
