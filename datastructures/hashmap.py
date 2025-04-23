@@ -26,7 +26,7 @@ class HashMap(IHashMap[KT, VT]):
         # rudimentary next prime finding function:
         size = len(self._buckets) * 2 + 1
         found = False
-        while found == False:
+        while True:
             size += 2 # starts on odd, only need to check odds
             divisors = 0
             for i in range(2, size):
@@ -34,8 +34,7 @@ class HashMap(IHashMap[KT, VT]):
                     divisors += 1
                     break
             if divisors == 0:
-                found = True
-        return size
+                return size
     
     def _rehash_and_resize(self, new_size) -> None:
         new_array = Array(starting_sequence = \
