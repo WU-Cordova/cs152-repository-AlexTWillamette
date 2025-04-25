@@ -1,9 +1,10 @@
-
+from .bistrosystem import BistroSystem
 
 def main():
     
-    print("Hello, World!")
+    system = BistroSystem()
 
+    system.start()
 
 
 if __name__ == '__main__':
