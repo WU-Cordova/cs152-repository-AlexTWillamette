@@ -22,19 +22,19 @@ class HashMap(IHashMap[KT, VT]):
         return self._hash_function(key) % len(self._buckets)
 
     def _get_next_size(self) -> int:
-        #return nextprime(len(self._buckets), 1) # codegrade doesn't like using sympy
-        # rudimentary next prime finding function:
+
+        def is_prime(num: int) -> bool:
+            if num < 2:
+                return False
+            for i in range(2, int(num**0.5)+1):
+                if num % i == 0:
+                    return False
+            return True
+
         size = len(self._buckets) * 2 + 1
-        found = False
-        while True:
-            size += 2 # starts on odd, only need to check odds
-            divisors = 0
-            for i in range(2, int(size**(1/2)+1)):
-                if size % i == 0:
-                    divisors += 1
-                    break
-            if divisors == 0:
-                return size
+        while not is_prime(size):
+            size += 2
+        return size
     
     def _rehash_and_resize(self, new_size) -> None:
         new_array = Array(starting_sequence = \
