@@ -29,7 +29,7 @@ class HashMap(IHashMap[KT, VT]):
         while True:
             size += 2 # starts on odd, only need to check odds
             divisors = 0
-            for i in range(2, size**(1/2)+1):
+            for i in range(2, int(size**(1/2)+1)):
                 if size % i == 0:
                     divisors += 1
                     break
