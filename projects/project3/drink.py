@@ -2,6 +2,9 @@ from dataclasses import dataclass
 
 @dataclass
 class Drink:
+    """
+    Dataclass to handle drinks.
+    """
     name : str
     size : str # "Medium" always
     price: float
